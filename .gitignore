@@ -1,0 +1,9 @@
+/node_modules
+npm-debug.log
+
+/idea
+.history/
+.DS_Store
+
+style.css
+app.bundle.js
