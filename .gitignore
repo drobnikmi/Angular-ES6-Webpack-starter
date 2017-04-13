@@ -1,7 +1,8 @@
 /node_modules
-npm-debug.log
+*.log
+*.lock.
 
-/idea
+.idea/
 .history/
 .DS_Store
 

@@ -30,6 +30,7 @@ module.exports = {
         ]
     },
     devServer: {
+        contentBase: path.resolve(__dirname, "./"),
         compress: true,
         port: 8080,
          historyApiFallback: {
@@ -37,12 +38,6 @@ module.exports = {
             contentBase: './'
 
          },
-        stats: "errors-only",
-        open: true
-    },
-    devServer: {
-        contentBase: path.resolve(__dirname, "./"),
-        compress: true,
         stats: "errors-only",
         open: true
     },
