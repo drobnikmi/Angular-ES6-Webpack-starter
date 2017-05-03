@@ -1,47 +1,70 @@
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
+var HtmlWebpackPlugin = require('html-webpack-plugin');
 var path = require("path");
-var prod = process.env.Node_ENV === 'production';
 
 module.exports = {
-    entry: './src/js/app.js',
-    output: {
-        path: path.resolve(__dirname, "./"),
-        filename: 'app.bundle.js',
-    },
-    module: {
-        rules: [
-        {
-            test: /\.sass$/,
-            use: ExtractTextPlugin.extract({
-                fallbackLoader: 'style-loader',
-                loader:['css-loader','sass-loader'],
-                publicPath: './'
-            })
-        },
-        {
-            test: /\.js$/,
-            exclude: '/node_modules',
-            use: 'babel-loader'
-        },
-        {
-        test: /\.json$/,
-        loader: 'json'
-        }
+  entry: ['./src/js/app.js', './src/css/style.sass'],
+  output: {
+    path: path.resolve(__dirname, "./dist"),
+    filename: '[name].js',
+  },
+  module: {
+    rules: [
+      {
+        test: /\.s[ac]ss$/,
+        use: ExtractTextPlugin.extract({
+          use: [
+            {
+              loader: 'css-loader',
+              options: {
+                url: true
+              }
+            },
+            'sass-loader'
+          ],
+          fallback: 'style-loader'
+        })
+      },
+      {
+        test: /\.js$/,
+        exclude: '/node_modules',
+        use: [
+          { loader: 'ng-annotate-loader' },
+          { loader: 'babel-loader' },
         ]
-    },
-    devServer: {
-        contentBase: path.resolve(__dirname, "./"),
-        compress: true,
-        port: 8080,
-         historyApiFallback: {
-            index: 'index.html',
-            contentBase: './'
-
-         },
-        stats: "errors-only",
-        open: true
-    },
-    plugins: [
-        new ExtractTextPlugin('./style.css')
+      },
+      {
+        test: /\.(ttf|woff|woff2|otf)$/,
+        loader: 'file-loader',
+        options: {
+          name: './fonts/[name].[ext]'
+        }
+      },
+      {
+        test: /\.(jpe?g|png|svg)$/,
+        loader: 'file-loader',
+        options: {
+          name: './img/[name].[ext]'
+        }
+      }
     ]
-}
+  },
+  devServer: {
+    contentBase: path.resolve(__dirname, "./"),
+    compress: true,
+    port: 8080,
+    historyApiFallback: {
+      index: 'index.html',
+      contentBase: './'
+    },
+    stats: "errors-only",
+    open: true
+  },
+  plugins: [
+    new ExtractTextPlugin("[name].css"),
+    new HtmlWebpackPlugin({
+      template: './index.html',
+      inject: 'body'
+    })
+  ]
+};

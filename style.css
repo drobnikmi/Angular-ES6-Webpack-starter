@@ -1,0 +1,10 @@
+body {
+  background-color: pink; }
+  body .container {
+    margin: 50px auto 0;
+    width: 400px;
+    height: 400px;
+    border: 2px solid black;
+    text-align: center; }
+  body p {
+    color: green; }

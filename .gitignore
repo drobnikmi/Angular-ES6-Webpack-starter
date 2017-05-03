@@ -1,10 +1,8 @@
 /node_modules
 *.log
-*.lock.
+*.lock
 
 .idea/
 .history/
 .DS_Store
-
-style.css
-app.bundle.js
+dist/
