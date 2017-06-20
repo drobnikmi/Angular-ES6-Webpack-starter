@@ -1,6 +1,8 @@
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
 var HtmlWebpackPlugin = require('html-webpack-plugin');
+var clearWebpackPlugin = require('clean-webpack-plugin');
 var path = require("path");
+
 
 module.exports = {
   entry: ['./src/js/app.js', './src/css/style.sass'],
@@ -46,6 +48,17 @@ module.exports = {
         options: {
           name: './img/[name].[ext]'
         }
+      },
+      {
+        test: /\.htaccess$/,
+        loader: 'file-loader',
+        options: {
+          name: '[name]'
+        }
+      },
+      {
+        test: /\.html$/,
+        loader: "raw-loader",
       }
     ]
   },
@@ -65,6 +78,10 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: './index.html',
       inject: 'body'
+    }),
+    new clearWebpackPlugin(['**/*'], {
+      root: path.resolve(__dirname, './dist'),
+      verbose: true
     })
   ]
 };
