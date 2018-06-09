@@ -1,15 +1,13 @@
-import 'angular';
-import uiRouter from 'angular-ui-router';
-const css = require('../css/style.sass');
-require('../.htaccess');
 
 
-angular.module('myApp',[
-    uiRouter
-])
+angular.module('myApp',[])
+    .controller('firstController', firstController)
+
+    function firstController() {
+        var vm = this;
+        vm.test = 'test';
+    }
 
 
 angular.bootstrap(document, ['myApp']);
-
-
 

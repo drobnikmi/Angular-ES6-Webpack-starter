@@ -4,5 +4,6 @@
 
 .idea/
 .history/
+lib/
 .DS_Store
 dist/
